@@ -44,6 +44,7 @@ class UtilsLibrary {
 
         try {
             version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+            Log.d(UtilsLibrary.class.getPackage().getName(), "installed version is: " + version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -140,7 +141,7 @@ class UtilsLibrary {
                 .url(url)
                 .build();
         ResponseBody body = null;
-
+        Log.d(UtilsLibrary.class.getPackage().getName(), "Loaded file: " + url);
         try {
             Response response = client.newCall(request).execute();
             body = response.body();
@@ -159,6 +160,7 @@ class UtilsLibrary {
                     case GITHUB:
                         if (line.contains(Config.GITHUB_TAG_RELEASE)) {
                             str.append(line);
+                            Log.d(UtilsLibrary.class.getPackage().getName(), "Found line: " + line);
                             isAvailable = true;
                         }
                         break;
@@ -196,6 +198,7 @@ class UtilsLibrary {
         final String recentChanges = getRecentChanges(updateFrom, isAvailable, source);
         final URL updateUrl = getUpdateURL(context, updateFrom, gitHub);
 
+        //@todo: the updateUrl for GitHub can be further specified
         return new Update(version, recentChanges, updateUrl);
     }
 
@@ -220,6 +223,7 @@ class UtilsLibrary {
                             version = splitGitHub[1].trim();
                         }
                     }
+                    Log.d(UtilsLibrary.class.getPackage().getName(), "Found version: " + version);
                     break;
                 case AMAZON:
                     String[] splitAmazon = source.split(Config.AMAZON_TAG_RELEASE);
