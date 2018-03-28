@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(MainActivity.class.getPackage().getName(), "Start GitHub Update...");
                 new AppUpdater(context)
-                        //.setUpdateFrom(UpdateFrom.GITHUB)
-                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
-                        .setUpdateFrom(UpdateFrom.JSON)
-                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.json")
+                        .setUpdateFrom(UpdateFrom.GITHUB)
+                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        //.setUpdateFrom(UpdateFrom.JSON)
+                        //.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.json")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();
